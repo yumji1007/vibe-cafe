@@ -1,0 +1,383 @@
+/* 모든 요소의 크기 계산에 테두리와 안쪽 여백을 포함합니다. */
+* {
+  box-sizing: border-box;
+}
+
+/* 카페 분위기의 배경색과 기본 글꼴을 설정합니다. */
+body {
+  margin: 0;
+  padding: 32px 16px;
+  background-color: #faf6f0;
+  color: #35271f;
+  font-family: '맑은 고딕', sans-serif;
+}
+
+/* 카페 이름과 소개 문구를 화면 가운데에 놓습니다. */
+header {
+  max-width: 520px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #6b4226;
+  font-size: 30px;
+}
+
+/* 이모지를 제목보다 더 크게 보여줍니다. */
+header h1 span {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 56px;
+  line-height: 1.2;
+  animation: logo-sway 3s ease-in-out infinite;
+}
+
+/* 커피 로고가 좌우로 천천히 흔들리게 합니다. */
+@keyframes logo-sway {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+/* 움직임 줄이기를 요청한 경우 애니메이션을 끕니다. */
+@media (prefers-reduced-motion: reduce) {
+  header h1 span {
+    animation: none;
+  }
+}
+
+header p {
+  margin: 8px 0 0;
+  color: #705c4d;
+}
+
+/* 주문서를 최대 520px 너비로 가운데 정렬합니다. */
+main {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* 두 탭을 가로로 놓고 선택 상태를 밑줄로 보여줍니다. */
+.tab-menu {
+  display: flex;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e2d4c5;
+}
+
+.tab-button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 8px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: #987e69;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  border-bottom-color: #6b4226;
+  color: #6b4226;
+}
+
+.tab-button:focus-visible,
+#clear-orders:focus-visible,
+.order-cancel-button:focus-visible {
+  outline: 3px solid rgb(107 66 38 / 25%);
+  outline-offset: 2px;
+}
+
+/* 주문 건수를 갈색 둥근 배지 안에 표시합니다. */
+.order-count-badge {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: #6b4226;
+  color: #fff;
+  font-size: 13px;
+}
+
+/* 주문서에 흰 배경과 부드러운 그림자를 적용합니다. */
+#order-form {
+  padding: 28px;
+  border: 1px solid #eadfd3;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgb(75 48 29 / 10%);
+}
+
+/* 일반 입력 항목 사이에 일정한 간격을 둡니다. */
+#order-form > div {
+  margin-bottom: 20px;
+}
+
+/* 입력칸 이름이 입력칸 위에 오도록 배치합니다. */
+#order-form > div > label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+
+/* 글자 입력, 선택 목록, 요청사항 입력칸의 공통 모양입니다. */
+#order-form input:not([type='radio']):not([type='checkbox']),
+#order-form select,
+#order-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px;
+  border: 1px solid #d8cabc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+#order-form textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* 입력칸을 선택했을 때 갈색 테두리와 연한 그림자를 보여줍니다. */
+#order-form input:focus,
+#order-form select:focus,
+#order-form textarea:focus {
+  border-color: #6b4226;
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(107 66 38 / 16%);
+}
+
+/* 사이즈와 옵션을 라벨과 함께 가로로 나열합니다. */
+#order-form fieldset {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px 8px;
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: 16px;
+  border: 1px solid #eadfd3;
+  border-radius: 10px;
+}
+
+#order-form legend {
+  padding: 0 6px;
+  color: #6b4226;
+  font-weight: 700;
+}
+
+#order-form fieldset input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #6b4226;
+}
+
+#order-form fieldset label {
+  min-width: 0;
+  cursor: pointer;
+}
+
+/* 예상 금액을 눈에 띄게 가운데 정렬합니다. */
+#estimated-price {
+  margin: 28px 0 18px;
+  color: #6b4226;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 버튼에 공통 여백과 둥근 모서리를 적용합니다. */
+#order-form button {
+  min-height: 46px;
+  padding: 10px 16px;
+  border: 1px solid #6b4226;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+/* 주문하기 버튼은 갈색 배경과 흰 글씨로 표시합니다. */
+#order-form button[type='submit'] {
+  width: 100%;
+  background-color: #6b4226;
+  color: #fff;
+}
+
+#order-form button[type='submit']:hover {
+  background-color: #855a3b;
+  transform: translateY(-2px);
+}
+
+/* 다시 작성 버튼은 흰 배경으로 구분합니다. */
+#order-form button[type='reset'] {
+  display: block;
+  margin: 10px auto 0;
+  background-color: #fff;
+  color: #6b4226;
+}
+
+#order-form button[type='reset']:hover {
+  background-color: #f4ece3;
+}
+
+/* 주문 확인 메시지를 연두색 배경으로 강조합니다. */
+#order-confirmation {
+  margin: 18px 0 0;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: #e8f4df;
+  color: #28633b;
+}
+
+/* 주문 내역 탭 제목과 빈 목록 안내를 정돈합니다. */
+#orders-panel h2 {
+  margin: 0 0 16px;
+  color: #6b4226;
+  font-size: 22px;
+}
+
+#empty-orders {
+  margin: 0;
+  padding: 28px 16px;
+  border-radius: 8px;
+  background-color: #f2e8dc;
+  color: #705c4d;
+  text-align: center;
+}
+
+/* 주문 한 건을 베이지색 카드와 갈색 왼쪽 선으로 구분합니다. */
+.order-card {
+  margin-bottom: 12px;
+  padding: 16px;
+  border-left: 4px solid #6b4226;
+  border-radius: 8px;
+  background-color: #f2e8dc;
+}
+
+.order-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.order-card-title {
+  margin: 0;
+  color: #4f321e;
+  font-size: 16px;
+}
+
+.order-card-details {
+  margin: 10px 0 0;
+}
+
+.order-card-meta {
+  margin: 8px 0 0;
+  color: #705c4d;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+/* 카드의 취소 버튼은 작고 구분되게 표시합니다. */
+.order-cancel-button {
+  flex: none;
+  padding: 5px 9px;
+  border: 1px solid #b99b81;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #6b4226;
+  font: inherit;
+  cursor: pointer;
+}
+
+.order-cancel-button:hover {
+  background-color: #f8f1e9;
+}
+
+/* 전체 주문 금액과 전체 삭제 버튼을 한 줄에 배치합니다. */
+#orders-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+#orders-total {
+  margin: 0;
+  color: #6b4226;
+  font-weight: 700;
+}
+
+#clear-orders {
+  flex: none;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #6b4226;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #6b4226;
+  font: inherit;
+  cursor: pointer;
+}
+
+#clear-orders:hover {
+  background-color: #f4ece3;
+}
+
+/* hidden 클래스나 HTML의 hidden 속성이 있으면 표시하지 않습니다. */
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/* 좁은 화면에서는 한 줄에 옵션 한 쌍씩 놓고 여백을 줄입니다. */
+@media (max-width: 420px) {
+  body {
+    padding: 24px 12px;
+  }
+
+  #order-form {
+    padding: 20px 16px;
+  }
+
+  #order-form fieldset {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px 8px;
+    padding: 14px 12px;
+  }
+
+  #estimated-price {
+    font-size: 22px;
+  }
+
+  #orders-summary {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #clear-orders {
+    align-self: flex-start;
+  }
+}
